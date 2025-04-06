@@ -18,9 +18,10 @@ static Queue CloneQueue(Queue queue)
     }
     return newqueue;
 }
-static List<T> CloneList<T>(List<T> list) where T:ICloneable{
+static List<T> CloneList<T>(List<T> list) where T : ICloneable
+{
     List<T> newlist = new List<T>();
-    foreach(T o in list) newlist.Add(o);
+    foreach (T o in list) newlist.Add(o);
     return newlist;
 }
 Type getType()
@@ -131,7 +132,7 @@ Type getType()
             case "sort":
                 object[] array = new object[queue.Count];
                 queue.CopyTo(array, 0);
-                Array.Sort(array, (a, b) => ((Game) a).Name.CompareTo(((Game) b).Name));
+                Array.Sort(array, (a, b) => ((Game)a).Name.CompareTo(((Game)b).Name));
                 queue = new Queue(array);
                 break;
         }
@@ -237,6 +238,13 @@ Type getType()
 {
     //Task 3
     Console.WriteLine("Task 3");
-    TestCollection testCollection = new TestCollection();
-    testCollection.Find();
+    Console.WriteLine("Input repeats:");
+    TestCollection testCollection = new TestCollection(1000, ConsoleInput.NATURAL.get());
+    Console.WriteLine("Input runs:");
+    int runs = ConsoleInput.NATURAL.get();
+    for (int i = 0; i < runs; i++)
+    {
+        testCollection.Find();
+    }
+    testCollection.Show();
 }
