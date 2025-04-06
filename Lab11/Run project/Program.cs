@@ -238,13 +238,16 @@ Type getType()
 {
     //Task 3
     Console.WriteLine("Task 3");
+    Console.WriteLine("Input count:");
+    int count = ConsoleInput.NATURAL.get();
     Console.WriteLine("Input repeats:");
-    TestCollection testCollection = new TestCollection(1000, ConsoleInput.NATURAL.get());
+    TestCollection testCollection = new TestCollection(count, ConsoleInput.NATURAL.get());
     Console.WriteLine("Input runs:");
     int runs = ConsoleInput.NATURAL.get();
     for (int i = 0; i < runs; i++)
     {
         testCollection.Find();
+        testCollection.Recreate(count);
     }
     testCollection.Show();
 }

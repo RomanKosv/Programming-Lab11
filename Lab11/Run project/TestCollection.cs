@@ -26,6 +26,10 @@ class TestCollection
     public void Recreate(int size = 1000)
     {
         array = new TableGame[size];
+        gameQueue = new Queue<Game>();
+        stringQueue = new Queue<string>();
+        gameDictionary = new SortedDictionary<Game, TableGame>();
+        stringDictionary = new SortedDictionary<string, TableGame>();
         for (int i = 0; i < size; i++)
         {
             TableGame tableGame = new TableGame();
