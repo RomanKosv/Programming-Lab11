@@ -41,15 +41,28 @@ class TestCollection
             stringDictionary[tableGame.Name] = (TableGame)tableGame.Clone();
         }
     }
-    public void Find()
+    public void Test()
     {
-        Console.WriteLine("First:");
-        Find(array[0]);
-        Console.WriteLine("Center:");
-        Find(array[array.Length / 2]);
-        Console.WriteLine("Last:");
+        TestStart();
+        TestCenter();
+        TestLast();
+    }
+
+    public void TestLast()
+    {
         Find(array[^1]);
     }
+
+    public void TestCenter()
+    {
+        Find(array[array.Length / 2]);
+    }
+
+    public void TestStart()
+    {
+        Find(array[0]);
+    }
+
     public void Find(TableGame game)
     {
         sgq += Find(game, gameQueue).ElapsedTicks / repeats;

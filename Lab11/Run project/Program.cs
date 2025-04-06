@@ -241,13 +241,30 @@ Type getType()
     Console.WriteLine("Input count:");
     int count = ConsoleInput.NATURAL.get();
     Console.WriteLine("Input repeats:");
-    TestCollection testCollection = new TestCollection(count, ConsoleInput.NATURAL.get());
+    int rep =ConsoleInput.NATURAL.get();
+    TestCollection 
+        testStart = new TestCollection(count, rep),
+        testCenter = new TestCollection(count, rep),
+        testEnd = new TestCollection(count, rep),
+        testAll = new TestCollection(count, rep);
     Console.WriteLine("Input runs:");
     int runs = ConsoleInput.NATURAL.get();
     for (int i = 0; i < runs; i++)
     {
-        testCollection.Find();
-        testCollection.Recreate(count);
+        testCenter.TestCenter();
+        testEnd.TestLast();
+        testStart.TestStart();
+        testAll.Test();
+        foreach(var coll in new TestCollection[]{testStart, testCenter, testEnd, testAll}) {
+            coll.Recreate();
+        }
     }
-    testCollection.Show();
+    Console.WriteLine("Start:");
+    testStart.Show();
+    Console.WriteLine("Center:");
+    testCenter.Show();
+    Console.WriteLine("Last:");
+    testEnd.Show();
+    Console.WriteLine("All:");
+    testAll.Show();
 }
