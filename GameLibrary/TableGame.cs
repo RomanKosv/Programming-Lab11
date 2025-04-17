@@ -7,17 +7,21 @@ public class TableGame : Game
 {
     public class Attribute : Game.Attribute
     {
-        public Attribute(string name)
-        {
-            Name = name;
-        }
+        
         public static Attribute CARDS = new Attribute("cards");
         public static Attribute CHIPS = new Attribute("chips");
+
+        public Attribute(string name) : base(name)
+        {
+        }
 
         public override bool Equals(object? obj)
         {
             if (obj is Attribute other) return Name.Equals(other.Name);
             else return false;
+        }
+        public new object Clone(){
+            return new Attribute(Name);
         }
     }
 
@@ -25,6 +29,10 @@ public class TableGame : Game
     {
         public Field(string name) : base(name) { }
         public static Field CHECHERED = new Field("chechered field");
+
+        public new object Clone() {
+            return new Field(Name);
+        }
 
     }
 
@@ -107,7 +115,8 @@ public class TableGame : Game
     public void CloneTo(TableGame game) {
         base.CloneTo(game);
         game.Attributes = new SortedSet<Attribute>(Attributes);
-        game.GameField = new Field(GameField.Name);
+        if (GameField!= null)game.GameField = (Field) GameField.Clone();
+        else game.GameField = null;
     }
     public override object GetClone()
     {

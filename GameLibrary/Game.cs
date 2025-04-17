@@ -40,12 +40,20 @@ public class Game : IPrintable, ICloneable, IComparable
     public int MinPlayers { get; protected set; } = 0;
     public int MaxPlayers { get; protected set; } = 0;
 
-    public class Attribute : IComparable<Attribute>
+    public class Attribute : IComparable<Attribute>, ICloneable
     {
+        public Attribute(string name) {
+            Name = name;
+        }
         public string Name { get; protected set; }
         public int CompareTo(Attribute? other)
         {
             return this.Name.CompareTo(other.Name);
+        }
+
+        public object Clone()
+        {
+            return new Attribute(Name);
         }
     }
 

@@ -6,9 +6,8 @@ public class VideoGame : Game
 {
     public class Device : Game.Attribute
     {
-        public Device(string name)
+        public Device(string name) : base(name)
         {
-            Name = name;
         }
         public static Device SMARTPHONE = new Device("smartphone");
         public static Device COMPUTER = new Device("computer");
@@ -17,6 +16,9 @@ public class VideoGame : Game
         {
             if (obj is Device o2) return Name.Equals(o2.Name);
             else return false;
+        }
+        public new object Clone() {
+            return new Device(Name);
         }
     }
     public int Layers { get; protected set; }

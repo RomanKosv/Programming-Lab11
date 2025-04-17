@@ -21,7 +21,10 @@ static Queue CloneQueue(Queue queue)
 static List<T> CloneList<T>(List<T> list) where T : ICloneable
 {
     List<T> newlist = new List<T>();
-    foreach (T o in list) newlist.Add(o);
+    foreach (T o in list) {
+        if (o is ICloneable cloneable) newlist.Add((T) cloneable.Clone());
+        else newlist.Add(o);
+    }
     return newlist;
 }
 Type getType()
@@ -45,10 +48,10 @@ Type getType()
     //Task 1
     Console.WriteLine("Task1");
     Queue queue = new Queue();
-    Console.WriteLine("Input command (stop/add/remove/show/count/min/max/clone/sort)");
     bool stop = false;
     do
     {
+        Console.WriteLine("Input command (stop/add/remove/show/count/min/max/clone/sort)");
         switch (ConsoleInput.MEAN_PART.check(Checks.Into(["stop", "add", "remove", "show", "count", "min", "max", "clone", "sort"]), "Command must be stop, add, remove, show, count, min, max, clone or sort").get())
         {
             case "stop":
@@ -72,7 +75,7 @@ Type getType()
                 queue.Enqueue(game);
                 break;
             case "remove":
-                if (queue.Count == 0) Console.WriteLine("Cant remove from empty stack.");
+                if (queue.Count == 0) Console.WriteLine("Cant remove from empty queue.");
                 else
                 {
                     Console.WriteLine("Removed element:");
@@ -94,7 +97,7 @@ Type getType()
                 int count = 0;
                 foreach (var o in queue)
                 {
-                    if (o.GetType().IsSubclassOf(type_c)) count++;
+                    if (type_c.IsInstanceOfType(o)) count++;
                 }
                 Console.WriteLine($"There is {count} games of this type.");
                 break;
@@ -142,10 +145,10 @@ Type getType()
     //Task 2
     Console.WriteLine("Task2");
     List<Game> list = new List<Game>();
-    Console.WriteLine("Input command (stop/add/remove/show/count/min/max/sort/clone)");
     bool stop = false;
     do
     {
+        Console.WriteLine("Input command (stop/add/remove/show/count/min/max/sort/clone)");
         switch (ConsoleInput.MEAN_PART.check(Checks.Into(["stop", "add", "show", "remove", "count", "min", "max", "clone", "sort"]), "Command must be stop, add, remove, show, count, min, max, clone or sort").get())
         {
             case "stop":
@@ -169,9 +172,10 @@ Type getType()
                 list.Add(game);
                 break;
             case "remove":
-                if (list.Count == 0) Console.WriteLine("Cant remove from empty stack.");
+                if (list.Count == 0) Console.WriteLine("Cant remove from empty list.");
                 else
                 {
+                    Console.WriteLine("Input index of element:");
                     int index = ConsoleInput.NATURAL.transform(ConsoleInput.NoMore(list.Count)).get() - 1;
                     Game el = list[index];
                     list.RemoveAt(index);
@@ -194,7 +198,7 @@ Type getType()
                 int count = 0;
                 foreach (var o in list)
                 {
-                    if (o.GetType().IsSubclassOf(type_c)) count++;
+                    if (type_c.IsInstanceOfType(o)) count++;
                 }
                 Console.WriteLine($"There is {count} games of this type.");
                 break;
